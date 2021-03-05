@@ -26,22 +26,34 @@ def convert(file, output=""):
 
 
 def initiate_convert():
-
-    print("File path of .WEBP to convert")
-    file = input()
-    print("\nDestination Path of .GIF")
-    output = input()
     
-    #Check to make sure file is an webp
-    if not file.endswith(".webp"):
-        print("The specified file is not an .webp image. Check your spelling and try again\n")
-        initiate_convert()
+    
+    def get_source_location():
         
-    if not os.path.exists(file):
-        print("The specified file cannot be located. Check your spelling and try again\n")
-
-    else:
-        convert(file.lower(), output.lower())
+        print("File path of .WEBP to convert")
+        
+        file = input()
+        if not os.path.exists(file) or not file.endswith(".webp"):
+            
+            print("The specified file is not a .webp image. Check your spelling and try again\n")
+            get_source_location()
+            
+        return(file)
+        
+    def get_output_location():
+        
+        print("Destination Path of .GIF")
+        
+        file = input()
+        
+        if not os.path.exists(file) and file != "":
+            print("The specified file path is invalid. Check your spelling and try again\n")
+            get_output_location()
+            
+        return(file)
+        
+    
+    convert(get_source_location(), get_output_location())
 
 
 if __name__ == "__main__":
